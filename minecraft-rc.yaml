@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: minecraft-rc
+spec:
+  replicas: 1
+  selector:
+    app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      containers:
+      - name: minecraft
+        image: itzg/minecraft-server:latest
+        env:
+        - name: EULA
+          value: "TRUE"
+        - name: VERSION
+          value: "1.12.2"
+        - name: MEMORY
+          value: "4G"
+        - name: TYPE
+          value: "BUKKIT"
+        - name: BUKKIT_DOWNLOAD_URL
+          value: "https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.12.2.jar"
+        ports:
+        - containerPort: 25565
+
